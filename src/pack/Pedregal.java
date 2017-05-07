@@ -74,7 +74,7 @@ public class Pedregal {
 			this.setAnchoTerreno(scan.nextInt());
 			this.setAltoTerreno(scan.nextInt());
 
-			terreno = new boolean[this.getAnchoTerreno()][this.getAltoTerreno()];
+			terreno = new boolean[this.getAltoTerreno()][this.getAnchoTerreno()];
 
 			this.setAnchoCasa(scan.nextInt());
 			this.setAltoCasa(scan.nextInt());
@@ -84,7 +84,7 @@ public class Pedregal {
 				int xPeñasco = scan.nextInt();
 				int yPeñasco = scan.nextInt();
 
-				this.setPeñasco(xPeñasco - 1, yPeñasco - 1);
+				this.setPeñasco(yPeñasco - 1, xPeñasco - 1);
 			}
 
 			scan.close();
@@ -98,14 +98,14 @@ public class Pedregal {
 			FileWriter file = new FileWriter(path);
 			BufferedWriter buffer = new BufferedWriter(file);
 
-			for (int i = 0; i < this.getAnchoTerreno(); i++) {
-				for (int j = 0; j < this.getAltoTerreno(); j++) {
+			for (int i = 0; i < this.getAltoTerreno(); i++) {
+				for (int j = 0; j < this.getAnchoTerreno(); j++) {
 					
 					if (this.casaCabeDesdeCasilla(i, j)) {
 						if (this.ubicarCasa(i, j) == true) {
 							buffer.write("SI");
 							buffer.newLine();
-							buffer.write((i + 1) + " " + (j + 1));
+							buffer.write((j + 1) + " " + (i + 1));
 							buffer.newLine();
 							buffer.write(this.orientacionCasa());
 							buffer.close();
@@ -123,12 +123,12 @@ public class Pedregal {
 	}
 	
 	private boolean casaCabeDesdeCasilla(int i, int j) {
-		return (this.getAnchoTerreno() - i >= this.getAnchoCasa()) && (this.getAltoTerreno() - j >= this.getAltoCasa());
+		return (this.getAltoTerreno() - i >= this.getAltoCasa()) && (this.getAnchoTerreno() - j >= this.getAnchoCasa());
 	}
 
 	private boolean ubicarCasa(int i, int j) {
-		for (int x = i; x < this.getAnchoCasa(); x++) {
-			for (int y = j; y < this.getAltoCasa(); y++) {
+		for (int x = i; x < this.getAltoCasa(); x++) {
+			for (int y = j; y < this.getAnchoCasa(); y++) {
 				if (this.isPeñasco(x, y)) {
 					return false;
 				}
@@ -155,8 +155,8 @@ public class Pedregal {
 	}
 	
 	public void mostrarTerreno() {
-		for (int i = 0; i < this.getAnchoTerreno(); i++) {
-			for (int j = 0; j < this.getAltoTerreno(); j++) {
+		for (int i = 0; i < this.getAltoTerreno(); i++) {
+			for (int j = 0; j < this.getAnchoTerreno(); j++) {
 				if (this.isPeñasco(i, j)) {
 					System.out.print("X");
 				} else {
